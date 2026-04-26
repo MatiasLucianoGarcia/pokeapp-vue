@@ -1,17 +1,8 @@
 <!--
   CONCEPTO: Transiciones de lista con <TransitionGroup>
 
-  <TransitionGroup> aplica animaciones CSS cuando:
-    - Un elemento entra al DOM (v-enter-*)
-    - Un elemento sale del DOM (v-leave-*)
-    - Un elemento se mueve dentro de la lista (v-move)
-
-  IMPORTANTE: a diferencia de <Transition>, <TransitionGroup>
-  requiere que cada hijo tenga una 'key' única.
-
-  PokemonList también demuestra cómo un COMPONENTE CONTENEDOR
-  recibe una lista y la renderiza como grid, sin conocer los
-  detalles de negocio del favoritos.
+  Actualización: ahora también pasa el evento 'quickView' hacia arriba.
+  Esta es la cadena de emits: PokemonCard → PokemonList → HomeView
 -->
 <script setup lang="ts">
 import PokemonCard from './PokemonCard.vue'
@@ -25,11 +16,8 @@ defineProps<{
 
 const emit = defineEmits<{
   toggleFavorite: [pokemonId: number]
+  quickView: [pokemonName: string]
 }>()
-
-function onToggleFavorite(id: number) {
-  emit('toggleFavorite', id)
-}
 </script>
 
 <template>
@@ -47,7 +35,8 @@ function onToggleFavorite(id: number) {
       <PokemonCard
         :pokemon="pokemon"
         :is-favorite="favoritesIds.has(extractIdFromUrl(pokemon.url))"
-        @toggle-favorite="onToggleFavorite"
+        @toggle-favorite="(id) => emit('toggleFavorite', id)"
+        @quick-view="(name) => emit('quickView', name)"
       />
     </li>
   </TransitionGroup>

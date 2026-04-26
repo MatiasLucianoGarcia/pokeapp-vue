@@ -63,6 +63,13 @@ function toggleTheme() {
             {{ favoritesStore.favoritesCount }}
           </span>
         </RouterLink>
+        <RouterLink
+          to="/feedback"
+          class="app-header__nav-link"
+          :class="{ 'app-header__nav-link--active': route.name === 'feedback' }"
+        >
+          💬 Sugerencias
+        </RouterLink>
       </nav>
 
       <button

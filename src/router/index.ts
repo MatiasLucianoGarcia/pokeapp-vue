@@ -40,6 +40,12 @@ const router = createRouter({
       meta: { title: 'Pokédex — Mis Favoritos' },
     },
     {
+      path: '/feedback',
+      name: 'feedback',
+      component: () => import('@/views/FeedbackView.vue'),
+      meta: { title: 'Pokédex — Sugerencias' },
+    },
+    {
       // Catch-all: cualquier ruta desconocida redirige al inicio
       path: '/:pathMatch(.*)*',
       redirect: '/',
